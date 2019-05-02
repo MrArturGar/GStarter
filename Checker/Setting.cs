@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataRead
+namespace CheckerVersion
 {
-    public class ConnectionMySQL
+    class Setting
     {
+
     }
 }

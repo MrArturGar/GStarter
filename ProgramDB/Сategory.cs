@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Templates
+namespace DataHandler
 {
     /// <summary>
     /// Шаблон данных о категории
     /// </summary>
-    class Сategory
+    class Category
     {
         public int idCatalog { get; set; }
         public string name { get; set; }

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Checker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="160" Width="490" WindowStyle="None" Background="Black">
+        Title="MainWindow" Height="160" Width="490" WindowStyle="None" Background="Black" Loaded="Window_Loaded">
     <Grid>
-        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="0,128,0,0" VerticalAlignment="Top" Width="482" Background="Black" BorderBrush="White">
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="24" Margin="0,128,0,0" VerticalAlignment="Top" Width="482" Background="Black" BorderBrush="White">
             <ProgressBar.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Red" Offset="0"/>
@@ -15,7 +15,7 @@
                 </LinearGradientBrush>
             </ProgressBar.Foreground>
         </ProgressBar>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="462" Foreground="White"/>
+        <Label x:Name="labelStatus" Content="Status" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="462" Foreground="White"/>
         <Grid HorizontalAlignment="Left" Height="97" Margin="104,0,0,0" VerticalAlignment="Top" Width="285">
             <Label Content="G" HorizontalAlignment="Left" VerticalAlignment="Top" Height="97" Width="60" FontSize="72" FontWeight="Bold" Foreground="Red"/>
             <Label Content="Starter" Margin="60,0,0,0" VerticalAlignment="Top" Height="97" Foreground="#FF6D81FF" FontSize="72" HorizontalAlignment="Left" Width="225"/>

@@ -3,11 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRead", "DataRead.csproj", "{7617B246-AA5C-4EC8-80F7-07CDF682D682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLConn", "SQLConn.csproj", "{7617B246-AA5C-4EC8-80F7-07CDF682D682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Templates", "..\ProgramDB\Templates.csproj", "{1381C56D-F13D-48B9-A485-C499D9D26106}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHandler", "..\ProgramDB\DataHandler.csproj", "{1381C56D-F13D-48B9-A485-C499D9D26106}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7617B246-AA5C-4EC8-80F7-07CDF682D682} = {7617B246-AA5C-4EC8-80F7-07CDF682D682}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checker", "..\Checker\Checker.csproj", "{82BC433B-4715-4E90-A7D1-8F470751B8E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckerVersion", "..\Checker\CheckerVersion.csproj", "{82BC433B-4715-4E90-A7D1-8F470751B8E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainWin", "..\MainWin\MainWin.csproj", "{7A3578BE-9861-4065-8D66-EC01E679CF2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCore", "..\GCore\GCore.csproj", "{0222C0AE-F354-4FC4-8A23-D6BD0A37B167}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +34,14 @@ Global
 		{82BC433B-4715-4E90-A7D1-8F470751B8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82BC433B-4715-4E90-A7D1-8F470751B8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82BC433B-4715-4E90-A7D1-8F470751B8E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3578BE-9861-4065-8D66-EC01E679CF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3578BE-9861-4065-8D66-EC01E679CF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3578BE-9861-4065-8D66-EC01E679CF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3578BE-9861-4065-8D66-EC01E679CF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0222C0AE-F354-4FC4-8A23-D6BD0A37B167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0222C0AE-F354-4FC4-8A23-D6BD0A37B167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0222C0AE-F354-4FC4-8A23-D6BD0A37B167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0222C0AE-F354-4FC4-8A23-D6BD0A37B167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

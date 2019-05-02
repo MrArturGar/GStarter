@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\DataRead",
-    "\\ProgramDB\\bin\\Debug",
-    "\\ProgramDB\\bin\\Release",
-    "\\ProgramDB\\obj\\Release"
+    "\\DataRead"
   ],
-  "SelectedNode": "\\DataRead\\DataRead.sln",
+  "SelectedNode": "\\DataRead\\GStarter.sln",
   "PreviewInSolutionExplorer": false
 }
