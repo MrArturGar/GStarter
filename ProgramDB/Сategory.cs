@@ -9,12 +9,22 @@ namespace DataHandler
     /// <summary>
     /// Шаблон данных о категории
     /// </summary>
-    class Category
+    public class Category
     {
-        public int idCatalog { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string image { get; set; }
 
+        private int idCatalog { get; set; }
+        public string name { get; set; }
+        private string short_description { get; set; }
+        private string description { get; set; }
+        private string image { get; set; }
+
+        public Category(int _idCatalog, string _name, string _short_description, string _description, string _image)
+        {
+            this.idCatalog = _idCatalog;
+            this.name = _name;
+            this.short_description = _short_description;
+            this.description = _description;
+            this.image = _image;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace GCore
         /// Добавить строчку в логгер
         /// </summary>
         /// <param name="_text">Текст для добавление</param>
-        public void addLineInLog(string _text)
+        public void addLineToLog(string _text)
         {
             using (StreamWriter sw = new StreamWriter(pathLogger, false, Encoding.Default))
             {

@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace GCore
 {
-    class ProgramDialog
+    public class ProgramDialog
     {
-        public void PrintError(Exception _e, bool _exit)
+        public void PrintError(bool _exit, Exception _e = null, string _text = "")
         {
-            MessageBox.Show(_e.ToString(), "Ошибка!!!");
+            MessageBox.Show(_text + "\n" + _e.ToString(), "Ошибка!!!");
 
             if (_exit)
                 Environment.Exit(0);

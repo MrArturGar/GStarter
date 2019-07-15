@@ -4,28 +4,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLConn;
+using GCore;
 
 namespace DataHandler
 {
-    class Handler
+    interface IDataHandler
     {
-        private Program pr = new Program();
-        private Category cat = new Category();
-        private Developer dev = new Developer();
-
         /// <summary>
         /// Получение списка программ по номеру страницы
         /// </summary>
         /// <param name="_page">Номер страницы</param>
-        /// <returns>Возврат списка программ</returns>
+        /// <returns>Возвращает список программ</returns>
+        List<Program> GetProgramList(int _page);
+        /// <summary>
+        /// Получить список категорий
+        /// </summary>
+        /// <returns>Возвращает список категорий</returns>
+        List<Category> GetCategoryList();
+        /// <summary>
+        /// Получение списка разработчиков по номеру страницы
+        /// </summary>
+        /// <param name="_page">Номер страницы</param>
+        /// <returns>Возвращает список программ</returns>
+        //List<Program> GetDeveloperyList(int _page);
+    }
+
+    public class Handler : IDataHandler
+    {
+        Logger Log = new Logger();
+        Program pr = new Program();
+        Developer dev = new Developer();
+
         public List<Program> GetProgramList(int _page)
         {
             MySQLHandler mysql = new MySQLHandler();
             List<Program> prList = new List<Program>();
 
             string sqltext = "Select Emp_Id, Emp_No, Emp_Name, Mng_Id from Employee";
-            mysql.CommanderMySql(sqltext, "programs");
+            //mysql.CommanderMySql(sqltext, "programs");
             return prList;
+        }
+
+
+        /// <summary>
+        /// Метод получения коллекции категорий
+        /// </summary>
+        /// <returns>Лист категорий</returns>
+        public List<Category> GetCategoryList()
+        {
+            List<Category> catList = new List<Category>();
+            try
+            {
+                MySQLHandler mysql = new MySQLHandler();
+
+                //List<string> categories = mysql.CommanderMySql("category");
+
+                foreach (string s in mysql.CommanderMySql("category"))
+                {
+                    string[] temp = s.Split(',');
+                    catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[0]));
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.addLineToLog(e.ToString());
+            }
+            return catList;
         }
     }
 }

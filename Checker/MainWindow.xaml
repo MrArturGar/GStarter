@@ -15,7 +15,7 @@
                 </LinearGradientBrush>
             </ProgressBar.Foreground>
         </ProgressBar>
-        <Label x:Name="labelStatus" Content="Status" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="462" Foreground="White"/>
+        <Label x:Name="labelStatus" Content="Статус" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="462" Foreground="White"/>
         <Grid HorizontalAlignment="Left" Height="97" Margin="104,0,0,0" VerticalAlignment="Top" Width="285">
             <Label Content="G" HorizontalAlignment="Left" VerticalAlignment="Top" Height="97" Width="60" FontSize="72" FontWeight="Bold" Foreground="Red"/>
             <Label Content="Starter" Margin="60,0,0,0" VerticalAlignment="Top" Height="97" Foreground="#FF6D81FF" FontSize="72" HorizontalAlignment="Left" Width="225"/>

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
 using System.Security.Cryptography;
+using GCore;
 
 namespace Checker
 {
@@ -18,8 +19,8 @@ namespace Checker
         }
 
         static string pathApp = AppDomain.CurrentDomain.BaseDirectory;
-        StreamWriter CheckFilesPath = new StreamWriter(pathApp + "//checkFiles.tmp");
-
+        StreamWriter CheckFilesPath = new StreamWriter(pathApp + "\\checkFiles.tmp");
+        ProgramDialog PD = new ProgramDialog();
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -30,6 +31,8 @@ namespace Checker
                 CancellationTokenSource m_cancelTokenSource = new CancellationTokenSource();
                 await StartProcessRefresh(prog, m_cancelTokenSource.Token);
                 labelStatus.Content = "Готово";
+
+                StartMainWindow();
             }
             catch
             {
@@ -54,8 +57,8 @@ namespace Checker
 
         private Task StartProcessRefresh(IProgress<int> prog, CancellationToken ct)
         {
-            var files = Directory.GetFiles(pathApp);
-            int numProgress = files.Length - 2;
+            string[] files = Directory.GetFiles(pathApp);
+            int numProgress = files.Length;
             progressBar.Maximum = numProgress;
 
             return Task.Run(() =>
@@ -65,21 +68,27 @@ namespace Checker
 
                     for (int i = 0; i < numProgress; i++)
                     {
+                        string st = (pathApp + "checkFiles.tmp");
                         //Сбор хеш всех файлов
-                        CheckFiles(files[i]);
+                        if (st != files[i])
+                            CheckFiles(files[i]);
 
                         //ct.ThrowIfCancellationRequested();
                         prog.Report(i);
                         Thread.Sleep(200);
                     }
+
                 }
-                catch
-                { }
+                catch (Exception e)
+                {
+                    PD.PrintError(true, e);
+                }
                 finally
                 {
                     CheckFilesPath.Close();
                 }
             }, ct);
+
         }
 
 
@@ -101,5 +110,18 @@ namespace Checker
 
         }
 
+        private void StartMainWindow()
+        {
+            try
+            {
+                MainWin.MainWindow main = new MainWin.MainWindow();
+                main.Show();
+                Close();
+            }
+            catch (Exception e)
+            {
+                PD.PrintError(true, e);
+            }
+        }
     }
 }

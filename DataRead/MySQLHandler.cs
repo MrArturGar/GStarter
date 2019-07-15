@@ -11,12 +11,12 @@ namespace SQLConn
 {
     public class MySQLHandler
     {
-        Logger addLog = new Logger();
+        Logger Log = new Logger();
 
         /// <summary>
         /// Подключение к базе данных
         /// </summary>
-        public static MySqlConnection GetDBConnection(string _table)
+        private MySqlConnection GetDBConnection()
         {
 
             /// <summary>
@@ -32,17 +32,17 @@ namespace SQLConn
             /// <summary>
             /// Логин к базе данных
             /// </summary>
-            string database = _table;
+            string database = "gstarter";
 
             /// <summary>
             /// Таблица базы данных
             /// </summary>
-            string username = "root";
+            string username = "gstarter";
 
             /// <summary>
             /// Пароль к базе данных
             /// </summary>
-            string password = "";
+            string password = "1234";
 
             // Connection String.
             string connString = "Server=" + host + ";Database=" + database
@@ -54,19 +54,48 @@ namespace SQLConn
         /// <summary>
         /// Отправка запроса базе данных
         /// </summary>
-        /// <param name="_sql">Сам запрос</param>
-        /// <param name="_table">Таблика</param>
-        public void CommanderMySql(string _sql, string _table)
+        /// <param name="_table">Таблица</param>
+        public List<string> CommanderMySql(string _table)
         {
-            MySqlConnection conn = GetDBConnection(_table);
+            //Подготавливаем коллекцию для ответа
+            List<string> response = new List<string>(); ;
+            //Строка запроса
+            string sql;
+            switch (_table)
+            {
+                case "category":
+                    sql = "Select ID_Category, Name, Short_Description, Description, Image from category";
+                    break;
+
+                default:
+                    Log.addLineToLog("SWITCH ERROR!!! Uncorrect programm code.");
+                    return response;
+            }
+
+
+            //Создаем подключение
+            MySqlConnection conn = GetDBConnection();
             conn.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand(_sql, conn);
+                MySqlCommand sqlcmd = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = sqlcmd.ExecuteReader())
+                {
+                    //Фасуем ответы
+                    while (reader.Read())
+                    {
+                        string resLine = "";
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            resLine += (reader[i].ToString() + (i != reader.FieldCount - 1 ? "," : ""));
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
-                addLog.addLineInLog(e.ToString());
+                //Логирование
+                Log.addLineToLog(e.ToString());
             }
             finally
             {
@@ -75,7 +104,7 @@ namespace SQLConn
                 // Разрушить объект, освободить ресурс.
                 conn.Dispose();
             }
-
+            return response;
         }
     }
 }

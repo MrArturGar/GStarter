@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataHandler</RootNamespace>
     <AssemblyName>DataHandler</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\DataRead\SQLConn.csproj">
       <Project>{7617b246-aa5c-4ec8-80f7-07cdf682d682}</Project>
       <Name>SQLConn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GCore\GCore.csproj">
+      <Project>{0222c0ae-f354-4fc4-8a23-d6bd0a37b167}</Project>
+      <Name>GCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
