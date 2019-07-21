@@ -64,7 +64,7 @@ namespace SQLConn
             switch (_table)
             {
                 case "category":
-                    sql = "Select ID_Category, Name, Short_Description, Description, Image from category";
+                    sql = "Select ID_Category, RusName, Name, Short_Description, Description, Image from category";
                     break;
 
                 default:
@@ -89,6 +89,7 @@ namespace SQLConn
                         {
                             resLine += (reader[i].ToString() + (i != reader.FieldCount - 1 ? "," : ""));
                         }
+                        response.Add(resLine);
                     }
                 }
             }

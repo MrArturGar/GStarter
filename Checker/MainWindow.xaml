@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Checker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="160" Width="490" WindowStyle="None" Background="Black" Loaded="Window_Loaded">
+        Title="MainWindow" Height="160" Width="490" Background="Black" Loaded="Window_Loaded" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="24" Margin="0,128,0,0" VerticalAlignment="Top" Width="482" Background="Black" BorderBrush="White">
             <ProgressBar.Foreground>

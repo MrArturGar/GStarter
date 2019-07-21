@@ -57,12 +57,10 @@ namespace DataHandler
             {
                 MySQLHandler mysql = new MySQLHandler();
 
-                //List<string> categories = mysql.CommanderMySql("category");
-
                 foreach (string s in mysql.CommanderMySql("category"))
                 {
                     string[] temp = s.Split(',');
-                    catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[0]));
+                    catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5]));
                 }
 
             }

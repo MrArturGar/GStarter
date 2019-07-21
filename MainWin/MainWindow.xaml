@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MainWin"
         xmlns:Properties="clr-namespace:MainWin.Properties" x:Class="MainWin.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" Loaded="Window_Loaded">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -57,29 +57,10 @@
         <StatusBar Height="25" VerticalAlignment="Bottom"/>
         <WrapPanel HorizontalAlignment="Left" Background="#FF727272" Width="200" Margin="0,0,0,24">
             <TextBox HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Поиск" VerticalAlignment="Top" Width="200" TextAlignment="Center" UseLayoutRounding="False" SpellCheck.IsEnabled="True" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-2" BorderThickness="1" Style="{DynamicResource TextBoxStyleCircle}"/>
-            <ListBox Height="371" Width="199" Background="#FF727272">
-                <ListBoxItem Content="Главное" FontSize="14" IsSelected="True"/>
-                <ListBox Name="listBoxMenu">
-                    <ListBoxItem Content="Обязательно к установке"/>
-                    <ListBoxItem Content="Видео"/>
-                    <ListBoxItem Content="Музыка"/>
-                </ListBox>
+            <ListBox Name="listBoxMenu" Height="371" Width="199" Background="#FF727272">
+                <Button Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="Buttons_Click"/>
             </ListBox>
         </WrapPanel>
-        <TabControl x:Name="tabControl" Margin="200,0,0,24">
-            <TabItem Header="TabItem">
-                <TabItem.HeaderTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="Главное"/>
-                            <Button Margin="5,0,0,0" Content="X" Width="25" Click="ButtonCloseTab_Click" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                        </WrapPanel>
-                    </DataTemplate>
-                </TabItem.HeaderTemplate>
-                <Grid Background="#FFE5E5E5">
-                    <WebBrowser Source="https://www.google.ru/" IsEnabled="False"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
+        <TabControl x:Name="tabControl" Margin="200,0,0,24"/>
     </Grid>
 </Window>
