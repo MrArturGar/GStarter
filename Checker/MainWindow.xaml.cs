@@ -110,6 +110,10 @@ namespace Checker
 
         }
 
+
+        /// <summary>
+        /// Старт главного окна программы
+        /// </summary>
         private void StartMainWindow()
         {
             try

@@ -35,6 +35,10 @@ namespace DataHandler
         Program pr = new Program();
         Developer dev = new Developer();
 
+        /// <summary>
+        /// Метод получения коллекции программ
+        /// </summary>
+        /// <returns>Лист программ</returns>
         public List<Program> GetProgramList(int _page)
         {
             MySQLHandler mysql = new MySQLHandler();

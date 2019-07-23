@@ -22,8 +22,23 @@ namespace MainWin
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        /// <summary>
+        /// Список избранных программ
+        /// </summary>
+        public List<Program> favoritePrograms = new List<Program>();
+
+        /// <summary>
+        /// Инициализация логера
+        /// </summary>
         Logger log = new Logger();
+
+        /// <summary>
+        /// Инициализация класса обработки информации
+        /// </summary>
         Handler handler = new Handler();
+
+
         public MainWindow()
         {
             Window_Loading();
@@ -31,6 +46,11 @@ namespace MainWin
         }
 
 
+        /// <summary>
+        /// Обработчик событий кнопок закрытия на вкладке
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonCloseTab_Click(object sender, RoutedEventArgs e)
         {
             Button bt = (Button)sender;
@@ -98,6 +118,13 @@ namespace MainWin
             CreateTab(bt.Tag.ToString());
         }
 
+
+        /// <summary>
+        /// Создание вкладок браузера
+        /// </summary>
+        /// <param name="_tag">Наименование вкладки на англ.</param>
+        /// <param name="_rusName">Наименование вкладки на рус.</param>
+        /// <returns>Успешное создание</returns>
         private bool CreateTab(string _tag = "Main", string _rusName = "Главное")
         {
             try
@@ -130,24 +157,30 @@ namespace MainWin
                     Header = wp,
                     MaxWidth = 100
                 };
-                ti.Resources.Add(bt, bt);
+                //ti.Resources.Add(bt, bt);
 
                 Grid g = new Grid();
-                WebBrowser wb = new WebBrowser();//
                 #endregion
+
+
+                //Выбор необходимого шаблона окна
                 switch (_tag)
                 {
                     case "Main":
                         {
+                            WebBrowser wb = new WebBrowser();//
                             wb.Source = new Uri("https://www.google.ru/");
+                            g.Children.Add(wb);//
                             break;
                         }
                     default:
                         {
+                            BrowserPageProgram pageProg = new BrowserPageProgram();
+                            g.Children.Add(pageProg);
+                            //pageProg.SetDataOnForm();
                             break;
                         }
                 }
-                g.Children.Add(wb);//
                 ti.Content = g;
                 tabControl.Items.Add(ti);
                 return true;
