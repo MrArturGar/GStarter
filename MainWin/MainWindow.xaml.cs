@@ -38,11 +38,10 @@ namespace MainWin
         /// </summary>
         Handler handler = new Handler();
 
-
         public MainWindow()
         {
-            Window_Loading();
             InitializeComponent();
+            Window_Loading();
         }
 
 
@@ -57,7 +56,8 @@ namespace MainWin
 
             foreach (TabItem tab in tabControl.Items)
             {
-                if (tab.Resources.Contains(bt))
+                bool finded = tab.Resources.Contains(bt);
+                if (finded)
                 {
                     tabControl.Items.Remove(tab);
                     break;
@@ -83,19 +83,44 @@ namespace MainWin
         {
             try
             {
+                List<MenuItem> rootMenu = new List<MenuItem>();
                 List<Category> cats = handler.GetCategoryList();
                 foreach (Category c in cats)
                 {
-                    Button bt = new Button()
+                    if (c.IdParent == -1)
                     {
-                        Content = c.rusName,
-                        Width = 185,
-                        BorderBrush = Brushes.White,
-                        Tag = c.name
-                    };
-                    bt.Click += Buttons_Click;
-
-                    listBoxMenu.Items.Add(bt);
+                        Menu menu = new Menu();
+                        MenuItem item = new MenuItem()
+                        {
+                            Header = c.rusName,
+                            Width = 185,
+                            Tag = c.idCatalog,
+                            Background = Brushes.Gray,
+                            FontSize = 14,
+                            Foreground = Brushes.White
+                        };
+                        rootMenu.Add(item);
+                        menu.Items.Add(item);
+                        listBoxMenu.Items.Add(menu);
+                    }
+                    else
+                    {
+                        foreach (MenuItem m in rootMenu)
+                        {
+                            if ((int) m.Tag == c.IdParent)
+                            {
+                                MenuItem item = new MenuItem()
+                                {
+                                    Header = c.rusName,
+                                    Width = Double.NaN,
+                                    Tag = c.idCatalog,
+                                    Foreground = Brushes.Black
+                                };
+                                m.Items.Add(item);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -157,7 +182,7 @@ namespace MainWin
                     Header = wp,
                     MaxWidth = 100
                 };
-                //ti.Resources.Add(bt, bt);
+                ti.Resources.Add(bt, bt);
 
                 Grid g = new Grid();
                 #endregion

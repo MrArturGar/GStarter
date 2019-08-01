@@ -32,8 +32,6 @@ namespace DataHandler
     public class Handler : IDataHandler
     {
         Logger Log = new Logger();
-        Program pr = new Program();
-        Developer dev = new Developer();
 
         /// <summary>
         /// Метод получения коллекции программ
@@ -63,8 +61,8 @@ namespace DataHandler
 
                 foreach (string s in mysql.CommanderMySql("category"))
                 {
-                    string[] temp = s.Split(',');
-                    catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5]));
+                    string[] temp = s.Split('╩');
+                    catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], Int32.Parse(temp[6])));
                 }
 
             }

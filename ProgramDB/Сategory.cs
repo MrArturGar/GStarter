@@ -12,14 +12,15 @@ namespace DataHandler
     public class Category
     {
 
-        private int idCatalog { get; set; }
+        public int idCatalog { get; set; }
         public string rusName { get; set; }
         public string name { get; set; }
         private string short_description { get; set; }
         private string description { get; set; }
         private string image { get; set; }
+        public int IdParent { get; set; }
 
-        public Category(int _idCatalog,string _rusName, string _name, string _short_description, string _description, string _image)
+        public Category(int _idCatalog,string _rusName, string _name, string _short_description, string _description, string _image, int _idParent)
         {
             this.idCatalog = _idCatalog;
             this.rusName = _rusName;
@@ -27,6 +28,7 @@ namespace DataHandler
             this.short_description = _short_description;
             this.description = _description;
             this.image = _image;
+            this.IdParent = _idParent;
         }
     }
 }

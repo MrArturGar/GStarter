@@ -56,12 +56,13 @@
     <Grid>
         <StatusBar Height="25" VerticalAlignment="Bottom">
             <Grid Height="25" Width="657"/>
+            <MenuItem Header="123"/>
             <ComboBox Text="Избранное" Width="120" RenderTransformOrigin="0.908,0.667"/>
         </StatusBar>
         <WrapPanel HorizontalAlignment="Left" Background="#FF727272" Width="200" Margin="0,0,0,24">
             <TextBox HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Поиск" VerticalAlignment="Top" Width="200" TextAlignment="Center" UseLayoutRounding="False" SpellCheck.IsEnabled="True" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-2" BorderThickness="1" Style="{DynamicResource TextBoxStyleCircle}"/>
             <ListBox Name="listBoxMenu" Height="371" Width="199" Background="#FF727272">
-                <Button Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="Buttons_Click"/>
+                <Button Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="Buttons_Click" Background="#FF787878"/>
             </ListBox>
         </WrapPanel>
         <TabControl x:Name="tabControl" Margin="200,0,0,24">
