@@ -18,29 +18,40 @@ using GCore;
 namespace MainWin
 {
     /// <summary>
-    /// Логика взаимодействия для browserPage.xaml
+    /// Логика взаимодействия для иrowserPageProgram.xaml
     /// </summary>
     public partial class BrowserPageProgram : UserControl
     {
 
-        Core core = new Core();
         public BrowserPageProgram()
         {
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Заполняет данными элемент управления
+        /// </summary>
+        /// <param name="_prog">Данные программы</param>
         public void SetDataOnForm(Program _prog)
         {
+            Core core = new Core();
             buttonFavorite.Tag = _prog;
 
-            textBlockNameRus.Text = _prog.name;
-            textBlockNameOrig.Content = _prog.origName;
+            textBlockNameRus.Text = _prog.NameRus;
+            textBlockNameOrig.Content = _prog.NameOrig;
             programImage.Source = core.GetImageFromPathOrNet(_prog.Image);
-            textBlockShortDesc.Text = _prog.shortDescription;
-            textBlockDesc.Text = _prog.description;
-            textBlockMetaData.Text = "Вес программы достигает ~ " + (_prog.weight/1024) +  " mb.";
+            textBlockShortDesc.Text = _prog.ShortDescription;
+            textBlockDesc.Text = _prog.Description;
+            textBlockMetaData.Text = "Вес программы достигает ~ " + (_prog.Weight/1024) +  " mb.";
         }
 
+
+        /// <summary>
+        /// Событие кнопки добавления программы в избранное
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonFavority_Click(object sender, RoutedEventArgs e)
         {
             var bt = (Button)sender;

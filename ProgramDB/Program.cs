@@ -10,19 +10,19 @@ namespace DataHandler
     /// <summary>
     /// Шаблон данных о программе
     /// </summary>
-    public class Program
+    public class Program : IElement
     {
-        public int idProgram { get; set; }
-        public string origName { get; set; }
-        public string name { get; set; }
-        public string shortDescription { get; set; }
-        public string description { get; set; }
+        public int IdProgram { get; set; }
+        public string NameOrig { get; set; }
+        public string NameRus { get; set; }
+        public string ShortDescription { get; set; }
+        public string Description { get; set; }
         public string Image { get; set; }
-        public string idCatalog { get; set; }
-        public double weight { get; set; }
-        public string linkSite { get; set; }
-        public string linkDownload { get; set; }
-        public string idDeveloper { get; set; }
+        public string IdCatalog { get; set; }
+        public double Weight { get; set; }
+        public string LinkSite { get; set; }
+        public string LinkDownload { get; set; }
+        public string IdDeveloper { get; set; }
 
     }
 }

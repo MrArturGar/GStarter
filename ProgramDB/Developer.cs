@@ -8,14 +8,14 @@ namespace DataHandler
 {    /// <summary>
      /// Шаблон данных о разработчиках
      /// </summary>
-    class Developer
+    class Developer : IElement
     {
         public int idDeveloper { get; set; }
-        public string name { get; set; }
-        public string shortDescription { get; set; }
+        public string NameRus { get; set; }
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
-        public string officialSite { get; set; }
-        public string image { get; set; }
+        public string OfficialSite { get; set; }
+        public string Image { get; set; }
 
     }
 }
