@@ -75,7 +75,6 @@ namespace MainWin
             CreateTab();
         }
 
-
         /// <summary>
         /// Обновляет данные ListBoxMenu
         /// </summary>
@@ -83,6 +82,7 @@ namespace MainWin
         {
             try
             {
+                #region Пункты меню из базы данных
                 List<MenuItem> rootMenu = new List<MenuItem>();
                 List<Category> cats = handler.GetCategoryList();
                 foreach (Category c in cats)
@@ -92,9 +92,9 @@ namespace MainWin
                         Menu menu = new Menu();
                         MenuItem item = new MenuItem()
                         {
-                            Header = c.rusName,
+                            Header = c.NameRus,
                             Width = 185,
-                            Tag = c.idCatalog,
+                            Tag = c.IdCatalog,
                             Background = Brushes.Gray,
                             FontSize = 14,
                             Foreground = Brushes.White
@@ -111,17 +111,37 @@ namespace MainWin
                             {
                                 MenuItem item = new MenuItem()
                                 {
-                                    Header = c.rusName,
+                                    Header = c.NameRus,
                                     Width = Double.NaN,
-                                    Tag = c.idCatalog,
+                                    Tag = c.IdCatalog,
                                     Foreground = Brushes.Black
                                 };
+                                //item.Click +=
                                 m.Items.Add(item);
                                 break;
                             }
                         }
                     }
                 }
+                #endregion
+
+                #region Тест
+                Button buttonMenuTest = new Button()
+                {
+                    Content = "Тест",
+                    Tag = "Test",
+                    FontSize = buttonMenuMain.FontSize,
+                    Width = buttonMenuMain.Width,
+                    BorderBrush = buttonMenuMain.BorderBrush,
+                    FontWeight = buttonMenuMain.FontWeight,
+                    Foreground = buttonMenuMain.Foreground,
+                    Background = buttonMenuMain.Background
+                };
+                buttonMenuTest.Click += ButtonsMenu_Click;
+                listBoxMenu.Items.Add(buttonMenuTest);
+                #endregion
+
+
             }
             catch (Exception ex)
             {
@@ -131,16 +151,15 @@ namespace MainWin
 
         }
 
-
         /// <summary>
         /// Вызывает и передает тэг кнопки вкладке
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Buttons_Click(object sender, RoutedEventArgs e)
+        private void ButtonsMenu_Click(object sender, RoutedEventArgs e)
         {
             Button bt = (Button)sender;
-            CreateTab(bt.Tag.ToString());
+            CreateTab(bt.Tag.ToString(), ((string) bt.Content));
         }
 
 
@@ -185,6 +204,12 @@ namespace MainWin
                 ti.Resources.Add(bt, bt);
 
                 Grid g = new Grid();
+                ScrollViewer scroll = new ScrollViewer()
+                {
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
+                };
+                g.Children.Add(scroll);
                 #endregion
 
 
@@ -201,7 +226,8 @@ namespace MainWin
                     default:
                         {
                             BrowserPageProgram pageProg = new BrowserPageProgram();
-                            g.Children.Add(pageProg);
+                            //g.Children.Add(pageProg);
+                            scroll.Content = pageProg;
                             //pageProg.SetDataOnForm();
                             break;
                         }

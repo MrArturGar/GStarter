@@ -33,7 +33,7 @@ namespace MainWin
         /// Заполняет данными элемент управления
         /// </summary>
         /// <param name="_prog">Данные программы</param>
-        public void SetDataOnForm(Program _prog)
+        public void SetDataOnElement(Program _prog)
         {
             Core core = new Core();
             buttonFavorite.Tag = _prog;

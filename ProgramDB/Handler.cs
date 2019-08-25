@@ -15,7 +15,7 @@ namespace DataHandler
         /// </summary>
         /// <param name="_page">Номер страницы</param>
         /// <returns>Возвращает список программ</returns>
-        List<Program> GetProgramList(int _page);
+        List<Program> GetProgramList(int _page, int _categoryNum);
         /// <summary>
         /// Получить список категорий
         /// </summary>
@@ -37,14 +37,25 @@ namespace DataHandler
         /// Метод получения коллекции программ
         /// </summary>
         /// <returns>Лист программ</returns>
-        public List<Program> GetProgramList(int _page)
+        public List<Program> GetProgramList(int _page, int _categoryNum)
         {
-            MySQLHandler mysql = new MySQLHandler();
-            List<Program> prList = new List<Program>();
+            List<Program> progList = new List<Program>();
+            try
+            {
+                MySQLHandler mysql = new MySQLHandler();
+                string sql = $"Select ID_Program, Orig_Name, Name, Short_Description, Description, Image, ID_Category, Weight, Link_Site, Link_Download, ID_Developer from programs where ID_Category={_categoryNum} LIMIT {10*(_page-1)}, 10";
 
-            string sqltext = "Select Emp_Id, Emp_No, Emp_Name, Mng_Id from Employee";
-            //mysql.CommanderMySql(sqltext, "programs");
-            return prList;
+                foreach (string s in mysql.CommanderMySql("programs", sql))
+                {
+                    string[] temp = s.Split('╩');
+                    progList.Add(new Program(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], Int32.Parse(temp[7]), temp[8], temp[9], Int32.Parse(temp[10])));
+                }
+            }
+            catch (Exception e)
+            {
+                Log.addLineToLog(e.ToString());
+            }
+            return progList;
         }
 
 
@@ -58,8 +69,9 @@ namespace DataHandler
             try
             {
                 MySQLHandler mysql = new MySQLHandler();
+                string sql = "Select ID_Category, RusName, Name, Short_Description, Description, Image, Parent from category";
 
-                foreach (string s in mysql.CommanderMySql("category"))
+                foreach (string s in mysql.CommanderMySql("category", sql))
                 {
                     string[] temp = s.Split('╩');
                     catList.Add(new Category(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], Int32.Parse(temp[6])));

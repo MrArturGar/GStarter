@@ -72,10 +72,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Elements\shortElementItem.xaml.cs">
-      <DependentUpon>shortElementItem.xaml</DependentUpon>
+    <Compile Include="Elements\BrowserList.xaml.cs">
+      <DependentUpon>BrowserList.xaml</DependentUpon>
     </Compile>
-    <Page Include="Elements\browserPageProgram.xaml">
+    <Compile Include="Elements\ItemBrowserList.xaml.cs">
+      <DependentUpon>ItemBrowserList.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Elements\BrowserList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Elements\BrowserPageProgram.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,14 +94,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Elements\browserPageProgram.xaml.cs">
-      <DependentUpon>browserPageProgram.xaml</DependentUpon>
+    <Compile Include="Elements\BrowserPageProgram.xaml.cs">
+      <DependentUpon>BrowserPageProgram.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Elements\shortElementItem.xaml">
+    <Page Include="Elements\ItemBrowserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

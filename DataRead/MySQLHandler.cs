@@ -55,22 +55,11 @@ namespace SQLConn
         /// Отправка запроса базе данных
         /// </summary>
         /// <param name="_table">Таблица</param>
-        public List<string> CommanderMySql(string _table)
+        public List<string> CommanderMySql(string _table, string _sql)
         {
             //Подготавливаем коллекцию для ответа
             List<string> response = new List<string>(); ;
             //Строка запроса
-            string sql;
-            switch (_table)
-            {
-                case "category":
-                    sql = "Select ID_Category, RusName, Name, Short_Description, Description, Image, Parent from category";
-                    break;
-
-                default:
-                    Log.addLineToLog("SWITCH ERROR!!! Uncorrect programm code.");
-                    return response;
-            }
 
 
             //Создаем подключение
@@ -78,7 +67,7 @@ namespace SQLConn
             conn.Open();
             try
             {
-                MySqlCommand sqlcmd = new MySqlCommand(sql, conn);
+                MySqlCommand sqlcmd = new MySqlCommand(_sql, conn);
                 using (MySqlDataReader reader = sqlcmd.ExecuteReader())
                 {
                     //Фасуем ответы

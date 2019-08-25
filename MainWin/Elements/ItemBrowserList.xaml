@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MainWin.shortElementItem"
+﻿<UserControl x:Class="MainWin.ItemBrowserList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
         <Image Name="imageElement" HorizontalAlignment="Left" Width="96" Source="/MainWin;component/Resources/no_image.png"/>
         <WrapPanel Height="90" Margin="96,0,0,0" VerticalAlignment="Top">
             <TextBlock Name="textBlockNameRus"  TextWrapping="Wrap" Text="NameRus" Height="40" Width="464" FontSize="24" FontWeight="Bold"/>
-            <Button x:Name="buttonFavorite"  Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" FontSize="20" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Добавить в избранные" Click="ButtonFavority_Click"/>
+            <Button x:Name="buttonFavorite"  Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" FontSize="20" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Добавить в избранные" Click="ButtonFavorite_Click"/>
             <TextBlock Name="textBlockShortDesc"  TextWrapping="Wrap" Text="TextBlockDescription"/>
         </WrapPanel>
 

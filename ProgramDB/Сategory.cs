@@ -17,7 +17,7 @@ namespace DataHandler
         public string NameOrig { get; set; }
         public string ShortDescription { get; set; }
         private string Description { get; set; }
-        private string Image { get; set; }
+        public string Image { get; set; }
         public int IdParent { get; set; }
 
         public Category(int _idCatalog,string _rusName, string _name, string _short_description, string _description, string _image, int _idParent)

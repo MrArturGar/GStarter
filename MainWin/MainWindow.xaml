@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MainWin"
         xmlns:Properties="clr-namespace:MainWin.Properties" x:Class="MainWin.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="450" Width="913" MinWidth="800" MinHeight="450" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -62,7 +62,7 @@
         <WrapPanel HorizontalAlignment="Left" Background="#FF727272" Width="200" Margin="0,0,0,24">
             <TextBox HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Поиск" VerticalAlignment="Top" Width="200" TextAlignment="Center" UseLayoutRounding="False" SpellCheck.IsEnabled="True" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-2" BorderThickness="1" Style="{DynamicResource TextBoxStyleCircle}"/>
             <ListBox Name="listBoxMenu" Height="371" Width="199" Background="#FF727272">
-                <Button Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="Buttons_Click" Background="#FF787878"/>
+                <Button Name="buttonMenuMain" Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="ButtonsMenu_Click" Background="#FF787878"/>
             </ListBox>
         </WrapPanel>
         <TabControl x:Name="tabControl" Margin="200,0,0,24">
