@@ -37,13 +37,13 @@ namespace DataHandler
         /// Метод получения коллекции программ
         /// </summary>
         /// <returns>Лист программ</returns>
-        public List<Program> GetProgramList(int _page, int _categoryNum)
+        public List<Program> GetProgramList(int _page, int _idCategory)
         {
             List<Program> progList = new List<Program>();
             try
             {
                 MySQLHandler mysql = new MySQLHandler();
-                string sql = $"Select ID_Program, Orig_Name, Name, Short_Description, Description, Image, ID_Category, Weight, Link_Site, Link_Download, ID_Developer from programs where ID_Category={_categoryNum} LIMIT {10*(_page-1)}, 10";
+                string sql = $"Select ID_Program, Orig_Name, Name, Short_Description, Description, Image, ID_Category, Weight, Link_Site, Link_Download, ID_Developer from programs where ID_Category={_idCategory} ORDER BY Count_Checked ASC LIMIT {10 * (_page - 1)}, 10 ";
 
                 foreach (string s in mysql.CommanderMySql("programs", sql))
                 {

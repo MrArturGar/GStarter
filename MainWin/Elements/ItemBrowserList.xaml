@@ -4,14 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MainWin"
-             mc:Ignorable="d" Height="90" Width="600">
+             mc:Ignorable="d" Height="90" d:DesignWidth="276"  Background="#FF93FF49">
     <Grid>
         <Image Name="imageElement" HorizontalAlignment="Left" Width="96" Source="/MainWin;component/Resources/no_image.png"/>
-        <WrapPanel Height="90" Margin="96,0,0,0" VerticalAlignment="Top">
-            <TextBlock Name="textBlockNameRus"  TextWrapping="Wrap" Text="NameRus" Height="40" Width="464" FontSize="24" FontWeight="Bold"/>
-            <Button x:Name="buttonFavorite"  Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" FontSize="20" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Добавить в избранные" Click="ButtonFavorite_Click"/>
-            <TextBlock Name="textBlockShortDesc"  TextWrapping="Wrap" Text="TextBlockDescription"/>
-        </WrapPanel>
-
+        <StackPanel Margin="96,0,41,0" VerticalAlignment="Top" Background="#FFFF8181">
+            <TextBlock Name="textBlockNameRus"  TextWrapping="Wrap" Text="NameRus" FontSize="24" FontWeight="Bold" Height="30"/>
+            <TextBlock Name="textBlockShortDesc" TextWrapping="Wrap" Text="TextBlockDescription" Height="60" Background="#FF98AFFF"/>
+        </StackPanel>
+        <Button x:Name="buttonFavorite"  Content="+" VerticalAlignment="Top" Width="40" Height="40" FontSize="20" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Добавить в избранные" Click="ButtonFavorite_Click" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

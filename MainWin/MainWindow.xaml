@@ -65,7 +65,6 @@
                 <Button Name="buttonMenuMain" Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="ButtonsMenu_Click" Background="#FF787878"/>
             </ListBox>
         </WrapPanel>
-        <TabControl x:Name="tabControl" Margin="200,0,0,24">
-        </TabControl>
+        <TabControl x:Name="tabControl" Margin="200,0,0,24"/>
     </Grid>
 </Window>

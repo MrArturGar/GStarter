@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataHandler;
 using GCore;
+using MainWin.Elements;
 
 namespace MainWin
 {
@@ -71,14 +72,14 @@ namespace MainWin
         /// </summary>
         private void Window_Loading()
         {
-            RefreshDataMenu();
+            GetDataMenu();
             CreateTab();
         }
 
         /// <summary>
         /// Обновляет данные ListBoxMenu
         /// </summary>
-        private void RefreshDataMenu()
+        private void GetDataMenu()
         {
             try
             {
@@ -116,7 +117,7 @@ namespace MainWin
                                     Tag = c.IdCatalog,
                                     Foreground = Brushes.Black
                                 };
-                                //item.Click +=
+                                item.Click += ButtonsMenu_Click;
                                 m.Items.Add(item);
                                 break;
                             }
@@ -129,7 +130,7 @@ namespace MainWin
                 Button buttonMenuTest = new Button()
                 {
                     Content = "Тест",
-                    Tag = "Test",
+                    Tag = "1",
                     FontSize = buttonMenuMain.FontSize,
                     Width = buttonMenuMain.Width,
                     BorderBrush = buttonMenuMain.BorderBrush,
@@ -158,8 +159,8 @@ namespace MainWin
         /// <param name="e"></param>
         private void ButtonsMenu_Click(object sender, RoutedEventArgs e)
         {
-            Button bt = (Button)sender;
-            CreateTab(bt.Tag.ToString(), ((string) bt.Content));
+            MenuItem bt = (MenuItem)sender;
+            CreateTab(bt.Tag.ToString(), ((string) bt.Header));
         }
 
 
@@ -207,9 +208,11 @@ namespace MainWin
                 ScrollViewer scroll = new ScrollViewer()
                 {
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
+                    HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
                 };
                 g.Children.Add(scroll);
+                ti.Content = g;
+                tabControl.Items.Add(ti);
                 #endregion
 
 
@@ -223,7 +226,7 @@ namespace MainWin
                             g.Children.Add(wb);//
                             break;
                         }
-                    default:
+                    case "Test":
                         {
                             BrowserPageProgram pageProg = new BrowserPageProgram();
                             //g.Children.Add(pageProg);
@@ -231,9 +234,15 @@ namespace MainWin
                             //pageProg.SetDataOnForm();
                             break;
                         }
+                    default:
+                        {
+                            BrowserList browserList = new BrowserList();
+                            browserList.SetDataToBrowser("Test", Int32.Parse(_tag));
+                            scroll.Content = browserList;
+                            break;
+                        }
                 }
-                ti.Content = g;
-                tabControl.Items.Add(ti);
+                ti.IsSelected = true;
                 return true;
             }
             catch (Exception ex)
