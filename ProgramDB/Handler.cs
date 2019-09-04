@@ -32,6 +32,7 @@ namespace DataHandler
     public class Handler : IDataHandler
     {
         Logger Log = new Logger();
+        static List<Program> FavoritProgramList;
 
         /// <summary>
         /// Метод получения коллекции программ

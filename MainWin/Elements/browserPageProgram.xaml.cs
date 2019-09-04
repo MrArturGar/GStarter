@@ -54,9 +54,8 @@ namespace MainWin
         /// <param name="e"></param>
         private void ButtonFavority_Click(object sender, RoutedEventArgs e)
         {
-            var bt = (Button)sender;
             MainWindow mw = new MainWindow();
-            mw.favoritePrograms.Add((Program) bt.Tag);
+            mw.favoritePrograms.Add((Program) buttonFavorite.Tag);
         }
     }
 }

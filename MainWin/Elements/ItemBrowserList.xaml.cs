@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataHandler;
+using MainWin;
 using GCore;
 
 namespace MainWin
@@ -36,14 +37,7 @@ namespace MainWin
         {
             Core core = new Core();
             buttonFavorite.Tag = element;
-            try
-            {
-                imageElement.Source = core.GetImageFromPathOrNet(element.Image);
-            }
-            catch
-            {
-                imageElement.Source = core.GetImageFromPathOrNet("Resources\no_image.png");
-            }
+            imageElement.Source = core.GetImageFromPathOrNet(element.Image);
             textBlockNameRus.Text = element.NameRus;
             textBlockShortDesc.Text = element.ShortDescription;
         }
@@ -57,6 +51,15 @@ namespace MainWin
         {
             //////
         }
+
+        #region События для элемента
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //System.ArgumentException: "Необходимо отсоединить указанный дочерний элемент от родительского элемента Visual, прежде чем подсоединять его к новому элементу Visual."
+            (Application.Current.MainWindow as MainWindow).OpenPage((IElement)buttonFavorite.Tag);
+        }
+
+        #endregion
 
     }
 }

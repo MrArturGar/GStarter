@@ -24,8 +24,6 @@ namespace MainWin.Elements
     {
         //Айди категории
         private int IdCategory;
-        //Имя категории
-        private string NameCategory;
         //Номер страницы категории
         private int NumPageCategory;
 

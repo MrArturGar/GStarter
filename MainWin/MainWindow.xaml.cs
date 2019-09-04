@@ -45,7 +45,6 @@ namespace MainWin
             Window_Loading();
         }
 
-
         /// <summary>
         /// Обработчик событий кнопок закрытия на вкладке
         /// </summary>
@@ -65,7 +64,6 @@ namespace MainWin
                 }
             }
         }
-
 
         /// <summary>
         /// Обработка данных до старта окна
@@ -108,7 +106,7 @@ namespace MainWin
                     {
                         foreach (MenuItem m in rootMenu)
                         {
-                            if ((int) m.Tag == c.IdParent)
+                            if ((int)m.Tag == c.IdParent)
                             {
                                 MenuItem item = new MenuItem()
                                 {
@@ -130,7 +128,7 @@ namespace MainWin
                 Button buttonMenuTest = new Button()
                 {
                     Content = "Тест",
-                    Tag = "1",
+                    Tag = "Test",
                     FontSize = buttonMenuMain.FontSize,
                     Width = buttonMenuMain.Width,
                     BorderBrush = buttonMenuMain.BorderBrush,
@@ -159,10 +157,17 @@ namespace MainWin
         /// <param name="e"></param>
         private void ButtonsMenu_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem bt = (MenuItem)sender;
-            CreateTab(bt.Tag.ToString(), ((string) bt.Header));
+            if (sender is MenuItem)
+            {
+                var mi = (MenuItem)sender;
+                CreateTab(mi.Tag.ToString(), ((string)mi.Header));
+            }
+            else if (sender is Button)
+            {
+                Button mi = (Button)sender;
+                CreateTab(mi.Tag.ToString(), ((string)mi.Content));
+            }
         }
-
 
         /// <summary>
         /// Создание вкладок браузера
@@ -170,16 +175,21 @@ namespace MainWin
         /// <param name="_tag">Наименование вкладки на англ.</param>
         /// <param name="_rusName">Наименование вкладки на рус.</param>
         /// <returns>Успешное создание</returns>
-        private bool CreateTab(string _tag = "Main", string _rusName = "Главное")
+        private bool CreateTab(string _tag = "Main", string _rusName = "Главное", IElement _element = null)
         {
             try
             {
                 #region инициализация
                 #region Шаблон header вкладки
-                WrapPanel wp = new WrapPanel();
+                WrapPanel wp = new WrapPanel() {
+                    Width = 110,
+                    Height = 20
+                };
                 TextBlock tb = new TextBlock()
                 {
-                    Text = _rusName
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    Text = _rusName,
+                    Width = (wp.Width-55)
                 };
                 Button bt = new Button()
                 {
@@ -198,7 +208,7 @@ namespace MainWin
 
                 TabItem ti = new TabItem()
                 {
-                    Tag = _tag,
+                    Tag = _rusName,
                     Header = wp,
                     MaxWidth = 100
                 };
@@ -226,12 +236,17 @@ namespace MainWin
                             g.Children.Add(wb);//
                             break;
                         }
+                    case "Program":
+                        {
+                            BrowserPageProgram pageProg = new BrowserPageProgram();
+                            scroll.Content = pageProg;
+                            pageProg.SetDataOnElement((Program)_element);
+                            break;
+                        }
                     case "Test":
                         {
                             BrowserPageProgram pageProg = new BrowserPageProgram();
-                            //g.Children.Add(pageProg);
                             scroll.Content = pageProg;
-                            //pageProg.SetDataOnForm();
                             break;
                         }
                     default:
@@ -252,5 +267,51 @@ namespace MainWin
             }
         }
 
+        /// <summary>
+        /// Доступный метод для UserControl
+        /// </summary>
+        /// <param name="_element">Информация элемента</param>
+        public void OpenPage(IElement _element)
+        {
+            if ((_element is Program)&& !NotFindOpenPage(_element.NameRus))
+                CreateTab(_tag: "Program", _rusName: _element.NameRus, _element: _element);
+        }
+
+        /// <summary>
+        /// Проверка существования текущего елемента
+        /// </summary>
+        /// <param name="_tabName"></param>
+        /// <returns></returns>
+        private bool NotFindOpenPage(string _tabName)
+        {
+            try
+            {
+                for (int i = 0; i<=(tabControl.Items.Count-1);i++)
+                {
+                    TabItem item = (TabItem) tabControl.Items[i];
+                    if (item.Tag.ToString() == _tabName)
+                    {
+                        item.IsSelected = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                log.addLineToLog(ex.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Очистка памяти после закрытия
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }
