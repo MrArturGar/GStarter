@@ -36,7 +36,7 @@ namespace MainWin
         public void SetDataOnElement(IElement element)
         {
             Core core = new Core();
-            buttonFavorite.Tag = element;
+            buttonFavorite.Tag = element.Id;
             imageElement.Source = core.GetImageFromPathOrNet(element.Image);
             textBlockNameRus.Text = element.NameRus;
             textBlockShortDesc.Text = element.ShortDescription;
@@ -49,14 +49,14 @@ namespace MainWin
         /// <param name="e"></param>
         private void ButtonFavorite_Click(object sender, RoutedEventArgs e)
         {
-            //////
+            (Application.Current.MainWindow as MainWindow).AddElementFromFavoriteList((int) buttonFavorite.Tag);
         }
 
         #region События для элемента
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //System.ArgumentException: "Необходимо отсоединить указанный дочерний элемент от родительского элемента Visual, прежде чем подсоединять его к новому элементу Visual."
-            (Application.Current.MainWindow as MainWindow).OpenPage((IElement)buttonFavorite.Tag);
+            (Application.Current.MainWindow as MainWindow).OpenPage((int) buttonFavorite.Tag);
         }
 
         #endregion

@@ -36,7 +36,7 @@ namespace MainWin
         public void SetDataOnElement(Program _prog)
         {
             Core core = new Core();
-            buttonFavorite.Tag = _prog;
+            buttonFavorite.Tag = _prog.Id;
 
             textBlockNameRus.Text = _prog.NameRus;
             textBlockNameOrig.Content = _prog.NameOrig;
@@ -54,8 +54,7 @@ namespace MainWin
         /// <param name="e"></param>
         private void ButtonFavority_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.favoritePrograms.Add((Program) buttonFavorite.Tag);
+            (Application.Current.MainWindow as MainWindow).AddElementFromFavoriteList((int)buttonFavorite.Tag);
         }
     }
 }

@@ -93,7 +93,7 @@ namespace MainWin
                         {
                             Header = c.NameRus,
                             Width = 185,
-                            Tag = c.IdCatalog,
+                            Tag = c.Id,
                             Background = Brushes.Gray,
                             FontSize = 14,
                             Foreground = Brushes.White
@@ -112,7 +112,7 @@ namespace MainWin
                                 {
                                     Header = c.NameRus,
                                     Width = Double.NaN,
-                                    Tag = c.IdCatalog,
+                                    Tag = c.Id,
                                     Foreground = Brushes.Black
                                 };
                                 item.Click += ButtonsMenu_Click;
@@ -181,7 +181,8 @@ namespace MainWin
             {
                 #region инициализация
                 #region Шаблон header вкладки
-                WrapPanel wp = new WrapPanel() {
+                WrapPanel wp = new WrapPanel()
+                {
                     Width = 110,
                     Height = 20
                 };
@@ -189,7 +190,7 @@ namespace MainWin
                 {
                     TextTrimming = TextTrimming.CharacterEllipsis,
                     Text = _rusName,
-                    Width = (wp.Width-55)
+                    Width = (wp.Width - 55)
                 };
                 Button bt = new Button()
                 {
@@ -268,16 +269,6 @@ namespace MainWin
         }
 
         /// <summary>
-        /// Доступный метод для UserControl
-        /// </summary>
-        /// <param name="_element">Информация элемента</param>
-        public void OpenPage(IElement _element)
-        {
-            if ((_element is Program)&& !NotFindOpenPage(_element.NameRus))
-                CreateTab(_tag: "Program", _rusName: _element.NameRus, _element: _element);
-        }
-
-        /// <summary>
         /// Проверка существования текущего елемента
         /// </summary>
         /// <param name="_tabName"></param>
@@ -286,9 +277,9 @@ namespace MainWin
         {
             try
             {
-                for (int i = 0; i<=(tabControl.Items.Count-1);i++)
+                for (int i = 0; i <= (tabControl.Items.Count - 1); i++)
                 {
-                    TabItem item = (TabItem) tabControl.Items[i];
+                    TabItem item = (TabItem)tabControl.Items[i];
                     if (item.Tag.ToString() == _tabName)
                     {
                         item.IsSelected = true;
@@ -312,6 +303,63 @@ namespace MainWin
         private void Window_Closed(object sender, EventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        /// <summary>
+        /// Доступный метод для UserControl
+        /// </summary>
+        /// <param name="_element">Информация элемента</param>
+        public void OpenPage(int _id)
+        {
+            Program element = handler.GetProgram(_id);
+            if ((element is Program) && !NotFindOpenPage(element.NameRus))
+                CreateTab(_tag: "Program", _rusName: element.NameRus, _element: element);
+        }
+
+        /// <summary>
+        /// Добавить элемент в избранное
+        /// </summary>
+        /// <param name="_idProgram">id программы</param>
+        public void AddElementFromFavoriteList(int _idProgram)
+        {
+            Program prog = handler.GetProgram(_idProgram);
+            //item.SetDataOnElement(prog);
+
+            #region Template items for ComboBoxFavorite
+            Core core = new Core();
+            ListBoxItem item = new ListBoxItem()
+            {
+                Tag = prog.Id,
+                ToolTip = prog.ShortDescription
+            };
+            item.MouseDoubleClick += FavoriteItem_DoubleClick;
+            CheckBox checkBox = new CheckBox()
+            {
+                Tag = prog.Id
+            };
+            WrapPanel wp = new WrapPanel();
+            Image image = new Image()
+            {
+                Source = core.GetImageFromPathOrNet(prog.Image),
+                Width = 40,
+                Height = 40
+            };
+            TextBlock text = new TextBlock()
+            {
+                Text = prog.NameRus,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            wp.Children.Add(image);
+            wp.Children.Add(text);
+            checkBox.Content = wp;
+            item.Content = checkBox;
+            #endregion
+            ListBoxFavorite .Items.Add(item);
+        }
+        private void FavoriteItem_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = (ListBoxItem)sender;
+            OpenPage((int) item.Tag);
         }
     }
 }

@@ -85,5 +85,31 @@ namespace DataHandler
             }
             return catList;
         }
+
+
+        /// <summary>
+        /// Метод получения данных программы
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <returns></returns>
+        public Program GetProgram(int _id)
+        {
+            Program prog = null;
+            try
+            {
+                MySQLHandler mysql = new MySQLHandler();
+                string sql = $"Select ID_Program, Orig_Name, Name, Short_Description, Description, Image, ID_Category, Weight, Link_Site, Link_Download, ID_Developer from programs where ID_Program={_id}";
+
+                List<string> data = mysql.CommanderMySql("programs", sql);
+
+                string[] temp = data[0].Split('╩');
+                prog = new Program(Int32.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], Int32.Parse(temp[7]), temp[8], temp[9], Int32.Parse(temp[10]));
+            }
+            catch (Exception e)
+            {
+                Log.addLineToLog(e.ToString());
+            }
+            return prog;
+        }
     }
 }

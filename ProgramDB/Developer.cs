@@ -10,7 +10,7 @@ namespace DataHandler
      /// </summary>
     class Developer : IElement
     {
-        public int idDeveloper { get; set; }
+        public int Id { get; set; }
         public string NameRus { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }

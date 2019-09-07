@@ -12,7 +12,7 @@ namespace DataHandler
     /// </summary>
     public class Program : IElement
     {
-        public int IdProgram { get; set; }
+        public int Id { get; set; }
         public string NameOrig { get; set; }
         public string NameRus { get; set; }
         public string ShortDescription { get; set; }
@@ -26,7 +26,7 @@ namespace DataHandler
 
         public Program(int _idProgram, string _nameOrig, string _nameRus, string _shortDescription, string _description, string _image, string _idCatalog, double _weight, string _linkSite, string _linkDownload, int _idDeveloper)
         {
-            IdProgram = _idProgram;
+            Id = _idProgram;
             NameOrig = _nameOrig;
             NameRus = _nameRus;
             ShortDescription = _shortDescription;

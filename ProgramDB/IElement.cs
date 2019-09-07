@@ -8,6 +8,7 @@ namespace DataHandler
 {
     public interface IElement
     {
+        int Id { get; set; }
         string NameRus { get; set; }
         string ShortDescription { get; set; }
         string Image { get; set; }

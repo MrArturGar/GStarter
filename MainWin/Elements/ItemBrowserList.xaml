@@ -7,7 +7,7 @@
              mc:Ignorable="d" Height="95" d:DesignWidth="250" Name="Element">
 
     <Grid>
-        <Button x:Name="button" MouseMove="UserControl_MouseMove" MouseLeave="UserControl_MouseLeave" Click="Button_Click">
+        <Button x:Name="button" Click="Button_Click">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=button, Mode=OneWay}">
                 <Image Name="imageElement" HorizontalAlignment="Left" Width="90" Height="90" Source="/MainWin;component/Resources/no_image.png"/>
                 <StackPanel Margin="91,0,38,0" VerticalAlignment="Top" Height="91">

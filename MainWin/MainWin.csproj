@@ -86,10 +86,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Elements\ItemFavoriteList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,9 +96,6 @@
     </Compile>
     <Compile Include="Elements\BrowserPageProgram.xaml.cs">
       <DependentUpon>BrowserPageProgram.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Elements\ItemFavoriteList.xaml.cs">
-      <DependentUpon>ItemFavoriteList.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

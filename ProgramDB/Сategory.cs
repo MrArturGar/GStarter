@@ -12,7 +12,7 @@ namespace DataHandler
     public class Category : IElement
     {
 
-        public int IdCatalog { get; set; }
+        public int Id { get; set; }
         public string NameRus { get; set; }
         public string NameOrig { get; set; }
         public string ShortDescription { get; set; }
@@ -22,7 +22,7 @@ namespace DataHandler
 
         public Category(int _idCatalog,string _rusName, string _name, string _short_description, string _description, string _image, int _idParent)
         {
-            this.IdCatalog = _idCatalog;
+            this.Id = _idCatalog;
             this.NameRus = _rusName;
             this.NameOrig = _name;
             this.ShortDescription = _short_description;
