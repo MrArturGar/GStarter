@@ -10,25 +10,38 @@ namespace GCore
 {
     public class Core
     {
-        #region Settings programm
-        private bool webImage { set => webImage = value; }
+        public bool StartInstallerProgram()
+        {
 
-        #endregion
+            return true;
+        }
 
-        /// <summary>
-        /// Gиск изображения в сети или в папках
-        /// </summary>
-        /// <param name="path">Путь к файлу</param>
-        /// <returns>Возвращает изображение</returns>
-        public BitmapImage GetImageFromPathOrNet(string _path)
+        private string GetArgument(int _id)
         {
             try
             {
-                return new BitmapImage(new Uri(_path));
+                string arg;
+// / silent
+// / verysilent
+// / quiet
+// / qb
+// / qn
+// / qr
+// / passive
+// / s
+// / S
+// / qn REBOOT = ReallySuppress
+//  / s / v" /qn REBOOT=ReallySuppress
+
+//Ключи для отмены перезагрузки:
+
+// / norestart
+// / noreboot
+                return arg;
             }
             catch
             {
-                return new BitmapImage(new Uri("/MainWin;component/Resources/no_image.png", UriKind.Relative));
+                return "";
             }
         }
 

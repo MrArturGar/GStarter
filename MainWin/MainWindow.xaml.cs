@@ -34,10 +34,6 @@ namespace MainWin
         /// </summary>
         Logger log = new Logger();
 
-        /// <summary>
-        /// Инициализация класса обработки информации
-        /// </summary>
-        Handler handler = new Handler();
 
         public MainWindow()
         {
@@ -81,6 +77,7 @@ namespace MainWin
         {
             try
             {
+                Handler handler = new Handler();
                 #region Пункты меню из базы данных
                 List<MenuItem> rootMenu = new List<MenuItem>();
                 List<Category> cats = handler.GetCategoryList();
@@ -123,24 +120,6 @@ namespace MainWin
                     }
                 }
                 #endregion
-
-                #region Тест
-                Button buttonMenuTest = new Button()
-                {
-                    Content = "Тест",
-                    Tag = "Test",
-                    FontSize = buttonMenuMain.FontSize,
-                    Width = buttonMenuMain.Width,
-                    BorderBrush = buttonMenuMain.BorderBrush,
-                    FontWeight = buttonMenuMain.FontWeight,
-                    Foreground = buttonMenuMain.Foreground,
-                    Background = buttonMenuMain.Background
-                };
-                buttonMenuTest.Click += ButtonsMenu_Click;
-                listBoxMenu.Items.Add(buttonMenuTest);
-                #endregion
-
-
             }
             catch (Exception ex)
             {
@@ -179,6 +158,18 @@ namespace MainWin
         {
             try
             {
+                if (_element != null)
+                {
+                    if (FindOpenPage(_element.Id))
+                        return true;
+                }
+                else
+                {
+                    if (FindOpenPage(_tag))
+                        return true;
+                }
+
+
                 #region инициализация
                 #region Шаблон header вкладки
                 WrapPanel wp = new WrapPanel()
@@ -209,7 +200,7 @@ namespace MainWin
 
                 TabItem ti = new TabItem()
                 {
-                    Tag = _rusName,
+                    Tag = _tag,
                     Header = wp,
                     MaxWidth = 100
                 };
@@ -240,20 +231,22 @@ namespace MainWin
                     case "Program":
                         {
                             BrowserPageProgram pageProg = new BrowserPageProgram();
+                            ti.Tag = _element.Id;
                             scroll.Content = pageProg;
                             pageProg.SetDataOnElement((Program)_element);
                             break;
                         }
-                    case "Test":
+                    case "Favorite":
                         {
-                            BrowserPageProgram pageProg = new BrowserPageProgram();
-                            scroll.Content = pageProg;
+                            BrowserList browserList = new BrowserList();
+                            browserList.SetDataToBrowser(_rusName, -1);
+                            scroll.Content = browserList;
                             break;
                         }
                     default:
                         {
                             BrowserList browserList = new BrowserList();
-                            browserList.SetDataToBrowser("Test", Int32.Parse(_tag));
+                            browserList.SetDataToBrowser(_rusName, Int32.Parse(_tag));
                             scroll.Content = browserList;
                             break;
                         }
@@ -273,26 +266,23 @@ namespace MainWin
         /// </summary>
         /// <param name="_tabName"></param>
         /// <returns></returns>
-        private bool NotFindOpenPage(string _tabName)
+        private bool FindOpenPage(object _id)
         {
-            try
+            for (int i = 0; i <= (tabControl.Items.Count - 1); i++)
             {
-                for (int i = 0; i <= (tabControl.Items.Count - 1); i++)
+                TabItem item = (TabItem)tabControl.Items[i];
+                try
                 {
-                    TabItem item = (TabItem)tabControl.Items[i];
-                    if (item.Tag.ToString() == _tabName)
+                    if (item.Tag.Equals(_id))
                     {
                         item.IsSelected = true;
                         return true;
                     }
                 }
-                return false;
+                catch
+                { }
             }
-            catch (Exception ex)
-            {
-                log.addLineToLog(ex.ToString());
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -311,8 +301,9 @@ namespace MainWin
         /// <param name="_element">Информация элемента</param>
         public void OpenPage(int _id)
         {
+            Handler handler = new Handler();
             Program element = handler.GetProgram(_id);
-            if ((element is Program) && !NotFindOpenPage(element.NameRus))
+            if (element is Program)
                 CreateTab(_tag: "Program", _rusName: element.NameRus, _element: element);
         }
 
@@ -322,44 +313,73 @@ namespace MainWin
         /// <param name="_idProgram">id программы</param>
         public void AddElementFromFavoriteList(int _idProgram)
         {
-            Program prog = handler.GetProgram(_idProgram);
-            //item.SetDataOnElement(prog);
+            if (!FindFromFavoriteList(_idProgram))
+            {
+                Handler handler = new Handler();
+                Program prog = handler.GetProgram(_idProgram);
+                //item.SetDataOnElement(prog);
 
-            #region Template items for ComboBoxFavorite
-            Core core = new Core();
-            ListBoxItem item = new ListBoxItem()
-            {
-                Tag = prog.Id,
-                ToolTip = prog.ShortDescription
-            };
-            item.MouseDoubleClick += FavoriteItem_DoubleClick;
-            CheckBox checkBox = new CheckBox()
-            {
-                Tag = prog.Id
-            };
-            WrapPanel wp = new WrapPanel();
-            Image image = new Image()
-            {
-                Source = core.GetImageFromPathOrNet(prog.Image),
-                Width = 40,
-                Height = 40
-            };
-            TextBlock text = new TextBlock()
-            {
-                Text = prog.NameRus,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            wp.Children.Add(image);
-            wp.Children.Add(text);
-            checkBox.Content = wp;
-            item.Content = checkBox;
-            #endregion
-            ListBoxFavorite .Items.Add(item);
+                #region Template items for ComboBoxFavorite
+
+                ListBoxItem item = new ListBoxItem()
+                {
+                    Tag = prog.Id,
+                    ToolTip = prog.ShortDescription
+                };
+                item.MouseDoubleClick += FavoriteItem_DoubleClick;
+                CheckBox checkBox = new CheckBox()
+                {
+                    Tag = prog.Id
+                };
+                WrapPanel wp = new WrapPanel();
+                Image image = new Image()
+                {
+                    Source = handler.GetImageFromPathOrNet(prog.Image),
+                    Width = 40,
+                    Height = 40
+                };
+                TextBlock text = new TextBlock()
+                {
+                    Text = prog.NameRus,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                wp.Children.Add(image);
+                wp.Children.Add(text);
+                checkBox.Content = wp;
+                item.Content = checkBox;
+                #endregion
+                ListBoxFavorite.Items.Add(item);
+            }
         }
         private void FavoriteItem_DoubleClick(object sender, RoutedEventArgs e)
         {
             ListBoxItem item = (ListBoxItem)sender;
-            OpenPage((int) item.Tag);
+            OpenPage((int)item.Tag);
+        }
+
+
+        /// <summary>
+        /// Поиск елемента в списке избранное
+        /// </summary>
+        /// <param name="_id">Ид</param>
+        /// <returns></returns>
+        private bool FindFromFavoriteList(object _id)
+        {
+            for (int i = 0; i <= (ListBoxFavorite.Items.Count - 1); i++)
+            {
+                ListBoxItem item = (ListBoxItem) ListBoxFavorite.Items[i];
+                try
+                {
+                    if (item.Tag.Equals(_id))
+                    {
+                        item.IsSelected = true;
+                        return true;
+                    }
+                }
+                catch
+                { }
+            }
+            return false;
         }
     }
 }

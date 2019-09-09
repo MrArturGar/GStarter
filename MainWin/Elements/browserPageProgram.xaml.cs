@@ -22,7 +22,6 @@ namespace MainWin
     /// </summary>
     public partial class BrowserPageProgram : UserControl
     {
-
         public BrowserPageProgram()
         {
             InitializeComponent();
@@ -35,12 +34,11 @@ namespace MainWin
         /// <param name="_prog">Данные программы</param>
         public void SetDataOnElement(Program _prog)
         {
-            Core core = new Core();
+            Handler handler = new Handler();
             buttonFavorite.Tag = _prog.Id;
-
             textBlockNameRus.Text = _prog.NameRus;
             textBlockNameOrig.Content = _prog.NameOrig;
-            programImage.Source = core.GetImageFromPathOrNet(_prog.Image);
+            programImage.Source = handler.GetImageFromPathOrNet(_prog.Image);
             textBlockShortDesc.Text = _prog.ShortDescription;
             textBlockDesc.Text = _prog.Description;
             textBlockMetaData.Text = "Вес программы достигает ~ " + (_prog.Weight/1024) +  " mb.";

@@ -44,9 +44,8 @@ namespace MainWin.Elements
             IdCategory = _idCategory;
             NumPageCategory = _numPage;
             TextBlockNamePage.Text  = _nameCategory;
-
+            
             GetElementsBrowser();
-
         }
 
         private void GetElementsBrowser()

@@ -65,6 +65,7 @@
             <ListBox x:Name="listBoxMenu" Height="Auto" Width="199" Background="#FF727272">
                 <Button x:Name="buttonMenuMain" Content="Главное" FontSize="14" Tag="Main" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="ButtonsMenu_Click" Background="#FF787878"/>
             </ListBox>
+            <Button x:Name="buttonFavoritePage" Content="Избранные" FontSize="14" Tag="Favorite" Width="185" BorderBrush="White" FontWeight="Bold" Foreground="Black" Click="ButtonsMenu_Click" Background="#FF787878"/>
             <ListBox x:Name="ListBoxFavorite" Width="197" Margin="2,0,1,0" Height="120" Background="#FF575757"/>
         </StackPanel>
         <TabControl x:Name="tabControl" Margin="200,0,0,24"/>

@@ -35,9 +35,9 @@ namespace MainWin
         /// <param name="element"></param>
         public void SetDataOnElement(IElement element)
         {
-            Core core = new Core();
+            Handler handler = new Handler();
             buttonFavorite.Tag = element.Id;
-            imageElement.Source = core.GetImageFromPathOrNet(element.Image);
+            imageElement.Source = handler.GetImageFromPathOrNet(element.Image);
             textBlockNameRus.Text = element.NameRus;
             textBlockShortDesc.Text = element.ShortDescription;
         }
