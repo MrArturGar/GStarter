@@ -20,23 +20,9 @@ namespace GCore
         {
             try
             {
-                string arg;
-// / silent
-// / verysilent
-// / quiet
-// / qb
-// / qn
-// / qr
-// / passive
-// / s
-// / S
-// / qn REBOOT = ReallySuppress
-//  / s / v" /qn REBOOT=ReallySuppress
+                string arg = "";
 
-//Ключи для отмены перезагрузки:
 
-// / norestart
-// / noreboot
                 return arg;
             }
             catch
