@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +36,16 @@ namespace WebParserData
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public static void ChangeUI()
+        {
+            //var UI = this.
+            //System.Windows.Threading.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {  });
+            
+            System.Windows.Threading.Dispatcher.Invoke((Action)()=>  
+            {
+            });
         }
     }
 }

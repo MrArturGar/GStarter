@@ -6,6 +6,9 @@ using System.IO;
 using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.OffScreen;
+using HtmlAgilityPack;
+using System.Windows.Threading;
+using System.Threading;
 
 namespace WebParserData
 {
@@ -13,10 +16,13 @@ namespace WebParserData
     {
         HTMLTagSetting setting = new HTMLTagSetting();
         private ChromiumWebBrowser browser;
-        private bool ProcessWork = false;
+        private static bool ProcessWork = false;
+        private bool IsParsingProgram = false;
+        private List<string> UrlList = new List<string>();
         public void StartBotProcess()
         {
             ProcessWork = true;
+            AsynsBot();
         }
 
         public void StopBotProcess(bool forcibly = false)
@@ -26,20 +32,15 @@ namespace WebParserData
 
         private async void AsynsBot()
         {
-            List<Uri> UriList = GetProgramList(GetListLink());
-            do
-            {
-                await Task.Run(() => Bot(UriList));
-
-            } while (ProcessWork);
+            await Task.Run(() => GetProgramList(GetListPageLink()));
         }
 
-        private void Bot(List<Uri> UriList)
-        {
 
-        }
-
-        private string GetListLink()
+        /// <summary>
+        /// Получаем начальную ссылку на список программ
+        /// </summary>
+        /// <returns></returns>
+        private string GetListPageLink()
         {
             string URL = setting.SiteHost;
             try
@@ -57,14 +58,81 @@ namespace WebParserData
 
         }
 
-        private List<Uri> GetProgramList(string _url)
+
+        /// <summary>
+        /// Запускаем браузер для получения списка
+        /// </summary>
+        /// <param name="_url"></param>
+        private void GetProgramList(string _url)
         {
-            browser = new ChromiumWebBrowser(_url);
-            return null;
+            if (ProcessWork == true)
+            {
+                browser = new ChromiumWebBrowser(_url);
+                browser.FrameLoadEnd += OnFrameLoadEnd;
+            }
+            else
+            {
+                browser.Stop();
+                browser.Delete();
+            }
         }
 
-        private void InitializeWebBrowser()
+        private async void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
+            string html = await browser.GetBrowser().MainFrame.GetSourceAsync();
+
+            if (IsParsingProgram)
+            {
+
+            }
+            else
+            {
+                if (html != null)
+                    GetLinkPrograms(html);
+            }
+        }
+
+        private void GetLinkPrograms(string _html)
+        {
+            HtmlDocument htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(_html);
+            HtmlNode root = htmlDoc.DocumentNode.SelectSingleNode(setting.HTMLTagBlocksProgram);
+            foreach (var child in root.ChildNodes)
+            {
+                if (child.Name == setting.HTMLTagBlockProgram)
+                {
+                    var tag = root.SelectSingleNode(setting.HTMLTagLinkProgram).Attributes[0].Value;
+                    UrlList.Add(tag);
+                    MainWindow.ChangeUI();
+
+                }
+            }
+            GetProgramList(GetNextListPage(browser.Address));
+        }
+
+
+        private string GetNextListPage(string _url)
+        {
+            string URL = null;
+            if (_url == setting.SiteHost)
+            {
+                URL = _url + setting.PageLink + "2";
+            }
+            else
+            {
+                string[] linkSplit = _url.Split('/');
+                if (Int32.Parse(linkSplit[linkSplit.Length - 1]) < setting.MaxCountPage)
+                {
+                    for (int i = 0; i < linkSplit.Length; i++)
+                    {
+                        URL = URL + linkSplit[i];
+                    }
+                    URL += $"";
+                }
+                else
+                    ProcessWork = false;
+            }
+            return URL;
         }
     }
 }
